@@ -1,0 +1,30 @@
+FROM ubuntu:18.04
+
+ENV LC_ALL="C.UTF-8"
+ENV LANG="C.UTF-8"
+
+WORKDIR /natlas-server
+
+COPY . /natlas-server
+
+RUN apt-get -qq update && apt-get -qqy install curl sqlite3
+
+RUN apt-get -qqy install \
+	python3.6 \
+	python3-pip \
+	virtualenv
+
+RUN virtualenv -p /usr/bin/python3 /natlas-server/venv
+
+RUN . /natlas-server/venv/bin/activate 
+RUN pip3 -q install --trusted-host pypi.python.org -r requirements.txt
+
+RUN flask db upgrade
+
+EXPOSE 5000
+
+CMD exec flask run
+
+
+
+
