@@ -17,15 +17,11 @@ RUN apt-get -qqy install \
 RUN virtualenv -p /usr/bin/python3 /natlas-server/venv
 
 # This is the same as running "source /natlas-server/venv/bin/activate"
-RUN . /natlas-server/venv/bin/activate 
-
-RUN pip3 -q install --trusted-host pypi.python.org -r requirements.txt
-
-RUN flask db upgrade
+RUN . /natlas-server/venv/bin/activate && pip3 -q install --trusted-host pypi.python.org -r requirements.txt
 
 EXPOSE 5000
 
-CMD . /natlas-server/run-server.sh
+CMD . /natlas-server/venv/bin/activate && flask db upgrade && /natlas-server/run-server.sh
 
 
 

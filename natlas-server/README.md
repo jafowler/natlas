@@ -1,4 +1,19 @@
 # natlas-server
+Docker
+------------------------
+The following commands will let you pull the docker images and run the server and elasticsearch on the same system.
+
+Elasticsearch Container
+```
+sudo docker run -p 9200:9200 -p 9300:9300 --network=host -e "discovery.type=single-node" -v es-data:/usr/share/elasticsearch/data docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+```
+
+Natlas server container
+```
+sudo docker run --network=host -v /path/to/dbfile:/natlas-server/metadata.db -v /path/to/serverenv_file:/natlas-server/.env natlas/natlas-server:latest
+```
+
+To create the SQLite database file, create an empty file and use the path to mount it to the image. The server will take care of instantiating the database when the container starts. (Same goes for the .env file).
 
 Installing Elasticsearch
 ------------------------

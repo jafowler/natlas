@@ -1,4 +1,10 @@
 # Natlas-agent
+Docker
+------------
+The following commands will let you pull the docker images and run the agent. The current network configuration is assuming that elasticsearch, server, and agent are running on the same system.
+```
+sudo docker run -v /path/to/serverenv_file:/natlas-agent/.env natlas/natlas-agent:latest
+```
 
 The Setup
 ------------
