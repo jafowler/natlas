@@ -7,9 +7,10 @@ WORKDIR /natlas-server
 
 COPY . /natlas-server
 
-RUN apt-get -qq update && apt-get -qqy install curl sqlite3
-
-RUN apt-get -qqy install \
+RUN apt-get --no-install-recommends -qq update && \
+	apt-get --no-install-recommends -qqy install \
+	curl \
+	sqlite3 \
 	python3.6 \
 	python3-pip \
 	virtualenv

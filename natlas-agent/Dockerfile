@@ -6,22 +6,20 @@ WORKDIR /natlas-agent
 
 COPY . /natlas-agent
 
-RUN apt-get -qq update
-
-RUN apt-get -qqy install \
+RUN apt-get --no-install-recommends -qq update && \
+	apt-get --no-install-recommends -qqy install \
 	python3.6 \
 	python3-pip \
 	virtualenv \
-    nmap \
-    chromium-browser \
-    unzip \
-    xvfb \
-    vncsnapshot \
-    wget 
-
-RUN wget $AQUATONEURL -O /tmp/aquatone.zip -q && \
-    unzip /tmp/aquatone.zip -d /tmp/aquatone && \
-    cp /tmp/aquatone/aquatone /usr/local/bin/aquatone && \
+	nmap \
+    	chromium-browser \
+    	unzip \
+    	xvfb \
+    	vncsnapshot \
+    	wget && \ 
+	wget $AQUATONEURL -O /tmp/aquatone.zip -q && \
+    	unzip /tmp/aquatone.zip -d /tmp/aquatone && \
+    	cp /tmp/aquatone/aquatone /usr/local/bin/aquatone && \
 	rm -rf /tmp/aquatone.zip /tmp/aquatone
 
 RUN virtualenv -p /usr/bin/python3 /natlas-agent/venv
